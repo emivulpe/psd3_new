@@ -17,7 +17,6 @@ public class Course {
 	public Course(String n){
 		name = n;
 		students=new LinkedList<CourseStudent>();
-		name = "";
 	}
 	public void addStudent(CourseStudent s){
 		students.add(s);

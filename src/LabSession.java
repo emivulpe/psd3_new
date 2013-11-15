@@ -1,16 +1,19 @@
 import java.util.ArrayList;
+import java.util.LinkedList;
 
 
 public class LabSession extends Session {
 
 	private int	tutorNum;
 	private ArrayList<Tutor> tutors;
+	private LinkedList<String> attendance;
 
 	public LabSession(boolean r, boolean c, int t, String l, String crs,
 			int bh, int bm, int eh, int em, int[] y,int cap) {
 		super(r, c,l, crs, bh, bm, eh, em, y,cap);
 		tutorNum=t;
 		tutors=new ArrayList<Tutor>();
+		attendance=new LinkedList<String>();
 	}
 	public LabSession(boolean r, boolean c,String l, String crs,
 			int bh, int bm, int eh, int em, int[] y,int cap) {
@@ -46,6 +49,10 @@ public class LabSession extends Session {
 			System.out.println("Can't add anymore tutors to session");
 		else{
 		tutors.add(t);}
+	}
+	
+	public void setStudentAttended(String student){
+		attendance.add(student);
 	}
 	
 

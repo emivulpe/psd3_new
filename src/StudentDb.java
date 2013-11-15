@@ -7,7 +7,9 @@ public class StudentDb {
 	private static StudentDb students=null;
 	
 	private HashMap<String,LinkedList<StudentCourse>> listOfStudents=new HashMap<String,LinkedList<StudentCourse>>();
-		private StudentDb(){}
+	private HashMap<String,String> barcodes=new HashMap<String,String>();
+	
+	private StudentDb(){}
 		
 		public static StudentDb getStudentDb(){
 			if(students==null)
@@ -16,14 +18,16 @@ public class StudentDb {
 			
 		}
 		
-		public void addRecord(String s,LinkedList<StudentCourse> courses){
+		public void addRecord(String s,String barcode,LinkedList<StudentCourse> courses){
 			listOfStudents.put(s, courses);
+			barcodes.put(barcode, s);
 			
 		}
 		//when you get the record you can export it in a .csv file
 		//or update it accordingly by adding/removing courses
 		public LinkedList<StudentCourse> getStudentRecord(String student){
 			return listOfStudents.get(student);
+		
 		}
 
 		
