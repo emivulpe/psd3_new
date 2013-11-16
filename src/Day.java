@@ -22,34 +22,31 @@ public class Day {
 	//booleans which is much better
 	
 	// this will need to be changed for session instead of timeslot
-	public void checkBook(Time b,Time e,Session s){
-		int diff=b.getHour()-e.getHour();
+	public void checkBook(Session s){
 		boolean c=false;
-		if (diff>1){
-			for(int i=0;i<=diff;i++){
-				if(slots.get(b.getHour()-9+i).isAvailable()){
+		if (slots.isEmpty()){slots.add(s);
+		System.out.println("( Session successfully booked)");}
+		else{
+			for(int j=0;j<slots.size();j++){
+				if(slots.get(j).getEnd().getHour()<=s.getBegin().getHour() ||slots.get(j).getBegin().getHour()>=s.getEnd().getHour()){
 					c=true;
 				}
-			}
-			if (c){
-				for(int i=0;i<=diff;i++){
-					slots.get(b.getHour()-9+i).book(s);
-					}
-				System.out.println("Session booked");
+				else if(slots.get(j).getBegin().getHour()<s.getBegin().getHour() && slots.get(j).getEnd().getHour()>=s.getEnd().getHour()){
+					c=false;
 				}
-			else{
-				System.out.println("Unable to book session.");}
+				else if(slots.get(j).getBegin().getHour()<s.getBegin().getHour() && slots.get(j).getEnd().getHour()>s.getBegin().getHour() && slots.get(j).getEnd().getHour()<=s.getEnd().getHour()){
+					c=false;
+				}
+				else if(slots.get(j).getBegin().getHour()==s.getBegin().getHour() || slots.get(j).getEnd().getHour()==s.getEnd().getHour())
+					c=false;
+				else{c=false;}
 			}
-		else{
-			if(slots.get(b.getHour()-9).isAvailable()){
-				slots.get(b.getHour()-9).book(s);
-				c=true;
-				System.out.println("Session booked");
-			}
+			if(c){slots.add(s);
+			System.out.println("( Session successfully booked)");}
 			else{
-				System.out.println("Unable to book session.");}
-			
+			System.out.println("(Unable to book session.)");}
 		}
+		
 	}
 
 	public ArrayList<Session> getSlots() {
@@ -66,10 +63,12 @@ public class Day {
 	
 	//return boolean as well
 	public void unbook(Session s){
-		if(!slots.get(s.getBegin().getHour()-9).isAvailable()){
-			slots.get(s.getBegin().getHour()-9).unbook();
-			System.out.println("Session freed.");}
-		else
-			System.out.println("Session is already free.");
+		for(int i=0;i<slots.size();i++){
+			if (slots.get(i).getBegin().getHour()==s.getBegin().getHour() && slots.get(i).getEnd().getHour()==s.getEnd().getHour()){
+				slots.remove(i);
+				System.out.println("Session freed.");
+			}
+		}
+		System.out.println("Session is already free.");
 	}
 }
