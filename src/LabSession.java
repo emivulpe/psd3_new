@@ -33,6 +33,11 @@ public class LabSession extends Session {
 		tutorNum=0;
 		tutors=new ArrayList<Tutor>();
 	}
+	
+	public LabSession(LinkedList<String> l){
+		super(l);
+		
+	}
 
 	public ArrayList<Tutor> getTutors() {
 		return tutors;

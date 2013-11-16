@@ -1,4 +1,7 @@
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.Scanner;
 
@@ -13,7 +16,8 @@ public class Main {
 	
 	private static void tutorOptions(){
 		System.out.println("Please select session: ");
-		System.out.println("    (a) Mock Session");
+		System.out.println("    (a) Manual");
+		System.out.println("    (b) CSV import");
 		System.out.println("Enter q to exit");
 		System.out.print("Enter : ");
 		
@@ -25,51 +29,70 @@ public class Main {
 	tutorOptions();
 	Scanner scanner = new Scanner(System.in);
 	String option=scanner.next();
-	while(option.equalsIgnoreCase("q")){
-	while(!option.equalsIgnoreCase("a") && !option.equalsIgnoreCase("q")){
+	while(!option.equalsIgnoreCase("q")){
+	while(!option.equalsIgnoreCase("a") && !option.equalsIgnoreCase("b") && !option.equalsIgnoreCase("q")){
 		System.out.println("!!! Invalid option !!! Please try again.");
 		tutorOptions();
 		scanner = new Scanner(System.in);
 		option=scanner.next();
 	}
-	System.out.println("Students in session: ");
-	System.out.println("1 Pikachu");
-	System.out.println("2 Charmander");
-	System.out.println("Enter (1 or 2):  ");
+	LinkedList<String>studentsList=new LinkedList<String>();
+	//students with ids 1-10
+	for(int i=1;i<11;i++){
+		studentsList.addLast(i+"");
+	}
+	Session s=new LabSession(studentsList);
+	Attendance a=s.getAttendanceList();
+	if(option.equalsIgnoreCase("a")){
+		
+	
+	System.out.println(a.getStudents());
+	System.out.println("Enter 0 to indicate end of adding attendance.");
 	 scanner = new Scanner(System.in);
 	int opt=scanner.nextInt();
-		while(opt!=1 && opt!=2){
+	while(opt!=0){
+		while(opt<0 && opt>10){
 			System.out.println("!!! Wrong option !!! Please try again.");
-			System.out.println("");
-			System.out.println("Students in session: ");
-			System.out.println("1 Pikachu");
-			System.out.println("2 Charmander");
-			System.out.println("Enter (1 or 2):  ");
-			scanner = new Scanner(System.in);
-			opt=scanner.nextInt();}
-	System.out.print("Would you like to enter attendance manualy or upload a csv file? (manual or csv): ");
-	scanner = new Scanner(System.in);
-	option=scanner.next();
-	System.out.println();
-	if (option.equalsIgnoreCase("manual")){
-	if (opt==1){
-		System.out.println("Pikachu is present.");
+			System.out.println();
+			opt=scanner.nextInt();
+		}
+		a.setPresent(opt+"");
+		opt=scanner.nextInt();
 	}
-	else if(opt==2)
-		System.out.println("Charmander is present");
+	}
+
 	
-	else System.out.println("Invalid student");
-	}
-	else if(option.equalsIgnoreCase("csv")){
-		System.out.println("Enter csv file : at1.csv");
-		System.out.println("Attendance recorded");
+	else if(option.equalsIgnoreCase("b")){
+		System.out.println("Specify which file to import.");
+		String file=scanner.next();
+		File f=new File(file);
+		Scanner fileScanner;
+		try {
+			fileScanner = new Scanner(f);
+			while(fileScanner.hasNextLine()){
+				String barcode=fileScanner.nextInt()+"";
+				String studentID=students.getIDFromBarcode(barcode);
+				a.setPresent(studentID);
+			}
+		} catch (FileNotFoundException e) {
+			System.out.println("File not present.");
+			System.exit(0);
+		}
+
+			
+		//create a file scanner
+		//for each line of the file
+		//a.setresent(filescan.nextln()
 		
 	}
-	else System.out.println("Invalid option. Please enter manual or csv. ");
-
+	for(String student:a.getPresent())
+		System.out.printf("Student with id %s is present.\n",student);
+	
+	
+	System.out.println("Enter what you want to do next or q to exit");
+	option=scanner.next();
 	}
-	System.out.println("Goodbye.");
-	System.exit(0);
+	System.out.println("Thank you and goodbye!");
 	}
 
 
@@ -281,7 +304,7 @@ public static void main(String args[]) throws IOException {
 	
 	
 	private static void mockStudentDb(){
-		Student s=new Student("1", "12345678536014", "john", "smith");
+		Student s=new Student("456","1", "john", "smith");
 		StudentCourse sc1=new StudentCourse("PSD3", "1", 19, 70, 89);
 		StudentCourse sc2=new StudentCourse("ADS3", "2", 19, 70, 89);
 		StudentCourse sc3=new StudentCourse("PS3", "3", 19, 70, 89);
@@ -294,9 +317,9 @@ public static void main(String args[]) throws IOException {
 //		s.addCourseRecord(c1);
 //		s.addCourseRecord(c2);
 //		s.addCourseRecord(c3);
-		students.addRecord(s.getGUID(),"123", s.getCourseMarks());
+		students.addRecord("1",s.getBarcode(), s.getCourseMarks());
 		
-		s=new Student("2", "12345678", "jane", "sean");
+		s=new Student("123","2", "jane", "sean");
 		sc1=new StudentCourse("Alg3", "3", 20, 60, 98);
 		sc2=new StudentCourse("PL3", "4", 13, 40, 65);
 		sc3=new StudentCourse("JP2", "5", 15, 56, 35);
@@ -309,7 +332,7 @@ public static void main(String args[]) throws IOException {
 //		s.addCourseRecord(c1);
 //		s.addCourseRecord(c2);
 //		s.addCourseRecord(c3);
-		students.addRecord(s.getGUID(),"456", s.getCourseMarks());
+		students.addRecord("2",s.getBarcode(), s.getCourseMarks());
 		
 	}
 }

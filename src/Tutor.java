@@ -51,40 +51,7 @@ public class Tutor extends User {
 		return true;
 	}
 	
-	
-	public void markAttendanceCSV(String filename, Session s){
-		try{
-			FileReader reader = new FileReader(filename);
-			Scanner in = new Scanner(reader);
-			while(in.hasNext()){
-				String line = in.nextLine();
-				String[] data = line.split(",");
-				for(Student stud: s.getListStudents()){
-					if (stud.getuserID()==data[0]){
-						s.getAttendanceList().changeAttendance(stud, "present");
-						break;
-					}
-				}
-			}
-		}
-		catch (Exception e){
-			System.out.println("file read failed");
-			return;
-		}
 
-	}
-	
-	public void markAttendanceManually(Session s){
-		Scanner scan;
-		
-		for (Student stud : s.getListStudents()){
-			System.out.print(stud.getuserID() + ":/t");
-			scan = new Scanner(System.in);
-			s.getAttendanceList().changeAttendance(stud, scan.next());
-			System.out.print("/n");
-		}
-		
-	}
 	
 	public void changeSingleAttendance(Session s, Student stud){
 		Scanner scan = new Scanner(System.in);

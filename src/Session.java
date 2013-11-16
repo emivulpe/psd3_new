@@ -9,7 +9,7 @@ public abstract class Session {
 	private Time begin;
 	private Time end;
 	private ArrayList<Integer> years;
-	private ArrayList<Student> listStudents;
+	private LinkedList<String> listStudents;
 	private int capacity;
 	private int studentNum;
 	private Attendance attendanceList;
@@ -24,7 +24,7 @@ public abstract class Session {
 		studentNum=0;
 		location=l;
 		course=crs;
-		listStudents=new ArrayList<Student>();
+		listStudents=new LinkedList<String>();
 		begin=new Time(bh,bm);
 		begin=new Time(eh,em);
 		years=new ArrayList<Integer>();
@@ -44,7 +44,7 @@ public abstract class Session {
 		location=l;
 		course=crs;
 		studentNum=0;
-		listStudents=new ArrayList<Student>();
+		listStudents=new LinkedList<String>();
 		capacity=cap;
 		begin=new Time(b);
 		begin=new Time(e);
@@ -55,16 +55,21 @@ public abstract class Session {
 		attendanceList = new Attendance(this);
 	}
 	
-	public void addStudent(Student s) throws CapacityException{
-		listStudents.add(s);
+	public Session (LinkedList<String> l){
+		listStudents=l;
+		attendanceList=new Attendance(this);
+	}
+	
+	public void addStudent(String studentID) throws CapacityException{
+		listStudents.add(studentID);
 		studentNum++;
 	}
 	
-	public ArrayList<Student> getListStudents() {
+	public LinkedList<String> getListStudents() {
 		return listStudents;
 	}
 	
-	public void setListStudents(ArrayList<Student> listStudents) {
+	public void setListStudents(LinkedList<String> listStudents) {
 		this.listStudents = listStudents;
 		studentNum=listStudents.size();
 	}
@@ -143,5 +148,27 @@ public abstract class Session {
 	
 	public Attendance getAttendanceList(){
 		return attendanceList;
+	}
+	
+	public void setAttendance(Attendance a){
+		attendanceList=a;
+	}
+
+
+	public boolean isAvailable() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+
+	public void book(Session s) {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+	public void unbook() {
+		// TODO Auto-generated method stub
+		
 	}
 }

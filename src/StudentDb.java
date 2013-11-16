@@ -8,7 +8,6 @@ public class StudentDb {
 	
 	private HashMap<String,LinkedList<StudentCourse>> listOfStudents=new HashMap<String,LinkedList<StudentCourse>>();
 	private HashMap<String,String> barcodes=new HashMap<String,String>();
-	
 	private StudentDb(){}
 		
 		public static StudentDb getStudentDb(){
@@ -29,7 +28,11 @@ public class StudentDb {
 			return listOfStudents.get(student);
 		
 		}
-
+		public String getIDFromBarcode(String barcode){
+			return barcodes.get(barcode);
+			
+		}
+		
 		
 		
 

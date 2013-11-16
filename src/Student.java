@@ -6,7 +6,7 @@ public class Student extends User {
 	private String email;
 	private int year;
 	private LinkedList<LabSession> labGroups;
-	public String guID;
+	public String barcode;
 	//no name, barcode of student card?
 		//guid are for students, i assumed userid in userclass would be barcode as everyone has a card with a barcode number on it (Which is also what the attendance scanner uses)
 	
@@ -14,16 +14,16 @@ public class Student extends User {
 	private LinkedList<Course> coursesTaken;
 	
 	
-	public Student(String guID, String userID, String forename, String surname){
+	public Student(String b, String userID, String forename, String surname){
 		super(userID, forename, surname);
-		this.guID = guID;
+		this.barcode = b;
 		coursesTaken=new LinkedList<Course>();
 		courseMarks=new LinkedList<StudentCourse>();
 	}
 	
-	public Student (String guID, String id,String fn, String ln, String mail,int y, LinkedList<StudentCourse> sc, LinkedList<Course> c, LinkedList<LabSession> lab){
+	public Student (String b, String id,String fn, String ln, String mail,int y, LinkedList<StudentCourse> sc, LinkedList<Course> c, LinkedList<LabSession> lab){
 		super(id, fn, ln);
-		this.guID=guID;
+		this.barcode=b;
 		year=y;
 		email=mail;
 		coursesTaken=c;
@@ -31,12 +31,12 @@ public class Student extends User {
 		courseMarks=sc;
 	}
 	
-	public void setGUID(String guID){
-		this.guID = guID;
+	public void setBarcode(String b){
+		this.barcode = b;
 	}
 	
-	public String getGUID(){
-		return guID;
+	public String getBarcode(){
+		return barcode;
 	}
 	
 	public void addCourseRecord(Course c){
