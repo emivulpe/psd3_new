@@ -15,13 +15,24 @@ public class Main {
 	
 	
 	private static void tutorOptions(){
-		System.out.println("Please select session: ");
+		System.out.println("Please select options: ");
+		System.out.println("- Attendance: ");
 		System.out.println("    (a) Manual");
 		System.out.println("    (b) CSV import");
 		System.out.println("Enter q to exit");
 		System.out.print("Enter : ");
 		
 	}
+		private static void moretutorOptions(){
+		System.out.println("Please select what do you want to next: ");
+		System.out.println("- Attendance: ");
+		System.out.println("    (a) Manual");
+		System.out.println("    (b) CSV import");
+		System.out.println("Enter q to exit");
+		System.out.print("Enter : ");
+		
+	}
+	
 	
 	public static void tutorlogin(){
 	
@@ -45,11 +56,13 @@ public class Main {
 	Attendance a=s.getAttendanceList();
 	if(option.equalsIgnoreCase("a")){
 		
-	
+	 CustomHeader(" Students in session.");
 	System.out.println(a.getStudents());
 	System.out.println("Enter 0 to indicate end of adding attendance.");
 	 scanner = new Scanner(System.in);
+	 CustomHeader(" Type in ID's of students that are present");
 	int opt=scanner.nextInt();
+	
 	while(opt!=0){
 		while(opt<0 && opt>10){
 			System.out.println("!!! Wrong option !!! Please try again.");
@@ -88,8 +101,9 @@ public class Main {
 	for(String student:a.getPresent())
 		System.out.printf("Student with id %s is present.\n",student);
 	
+	System.out.println("");
 	
-	System.out.println("Enter what you want to do next or q to exit");
+	moretutorOptions();
 	option=scanner.next();
 	}
 	System.out.println("Thank you and goodbye!");
