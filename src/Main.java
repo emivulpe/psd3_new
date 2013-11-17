@@ -260,7 +260,7 @@ public static void main(String args[]) throws IOException {
 		loginHeader();
 		mockCourseDb();
 		mockStudentDb();
-		
+		 CustomHeader(" Available log in details (tutor, admin, student, lecturer). Use this for both Username and Password ");
 		System.out.println("Welcome. Please enter your log in details below.");
 		System.out.println("");
 		System.out.print("Username: ");
