@@ -1,0 +1,5 @@
+How to compile and build prototype from command line: 
+
+1. navigate to folder where prototype source files are
+2. type command 'make'
+3. type command 'make run'
