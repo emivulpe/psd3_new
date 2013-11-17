@@ -24,7 +24,7 @@ public class Main {
 		
 	}
 		private static void moretutorOptions(){
-		System.out.println("Please select what do you want to next: ");
+		System.out.println("Please select what you want to next: ");
 		System.out.println("- Attendance: ");
 		System.out.println("    (a) Manual");
 		System.out.println("    (b) CSV import");
